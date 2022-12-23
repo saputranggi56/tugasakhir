@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, session, url_for, redirect
-# from flask_sqlalchemy import SQLAlchemy
 
 from controller.PraprosesController import PraprosesController
 from controller.ModelingController import ModelingController
 from controller.DataBeritaController import DataBeritaController
 from controller.VisualisasiController import VisualisasiController
+import socket
 
 import psycopg2
 import psycopg2.extras
@@ -16,6 +16,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn.model_selection import train_test_split
 import array
+from urllib.parse import urlsplit, urlunsplit
 
 
 app = Flask(__name__)
@@ -47,7 +48,14 @@ def visualisasi():
     visualisasi = VisualisasiController()
     data = visualisasi.worldCloud()
 
+    url = request.base_url
+    split_url   = urlsplit(url)
 
+    scheme      = split_url.scheme 
+    netloc      = split_url.netloc
+    port        = split_url.port
+
+    baseUrl = scheme+'://'+netloc
 
     dataAll = visualisasi.loadDataPercentage()
 
@@ -60,14 +68,43 @@ def visualisasi():
     dataReturn['cnbc'] = dataCnbc
     dataReturn['detik'] = dataDetik
     dataReturn['tempo'] = dataTempo
+    
 
-    # for x in dataAll:
-    #     print(x)
-    # return featureData
     featureData = visualisasi.loadDataByFeature()
 
-    return render_template('visualisasi.html', data=dataReturn, fiturdata=featureData)
+    return render_template('visualisasi.html', data=dataReturn, fiturdata=featureData, baseUrl=baseUrl)
 
+@app.route("/detailclass")
+def detailclass():
+    url = request.base_url
+    split_url   = urlsplit(url)
+
+    scheme      = split_url.scheme 
+    netloc      = split_url.netloc
+    port        = split_url.port
+
+    baseUrl = scheme+'://'+netloc
+
+    flagging = request.args.get('class')
+
+    if flagging == 'negatif':
+        flagging = '2'
+    if flagging == 'positif':
+        flagging = '1'
+    if flagging == 'netral':
+        flagging = '0'
+
+    visualisasi = VisualisasiController()
+    data = visualisasi.loadDataClassFlagging(flagging)
+    return render_template("detailclass.html", data=data,baseUrl=baseUrl)
+    # return data
+
+@app.route("/detailBerita")
+def detailBerita():
+    berita_id = request.args.get('berita')
+
+    return berita_id
+    
 @app.route('/formklasifikasi')
 def formklasifikasi():
     return render_template('formklasifikasi.html')
@@ -107,7 +144,6 @@ def index():
 @app.route("/redirect")
 def ayo_redirect():
     return redirect(url_for("about"))   
-
 
 @app.route("/cek")
 def coba(): 

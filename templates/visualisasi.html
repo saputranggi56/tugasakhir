@@ -65,7 +65,8 @@
     }
     myVar = myFunc({{data|tojson}})
     myVarFitur = myFunc({{fiturdata|tojson}})
-    console.log(myVarFitur)
+    baseUrl   = '{{baseUrl}}'
+
     var myChartPie = echarts.init(document.getElementById('myChartPie'));
 
     optionPie = {
@@ -126,6 +127,14 @@
 
     myChartPie.setOption(optionPie);
     
+    myChartPie.on('click', function(params) {
+      paramClass = params.data.name
+      paramClass = paramClass.toLowerCase()
+
+      window.open(baseUrl+'/'+'detailclass'+'?class='+paramClass)
+
+    });
+
     var myChartBar = echarts.init(document.getElementById('myChartBar'));
     optionBar = {
         title: {

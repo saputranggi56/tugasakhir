@@ -1,0 +1,100 @@
+{% extends "main_layout.html" %}
+{% block content %}
+<h4>
+    Detail Data Class 
+</h4>
+
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="example"></table>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready( function () {
+    function myFunc(vars) {
+      return vars
+    }
+    myVar = myFunc({{data|tojson}})
+    baseUrl   = '{{baseUrl}}'
+
+    var data = myVar
+    var table = $('#example').DataTable({
+      columns: [
+          {   name: 'url',
+              title: 'No',
+          },
+          {
+              name: 'portal',
+              title: 'Portal',
+          },
+          {
+              name: 'judul',
+              title: 'Judul',
+          },
+          {   name:'publis_date',
+              title: 'Tanggal',
+          },
+          {   name:'kalimat',
+              title: 'Kalimat',
+          },
+          {   name:'flagging',
+              title: 'Class',
+          },
+          {   name:'action',
+              title: 'Action',
+          },
+      ],
+      data: data,
+      rowsGroup: [
+        'url:name',
+        'portal:name',
+        'judul:name',
+        'publis_date:name',
+        'action:name',
+      ],
+      lengthMenu  : [[100, 200, 300, -1], [100, 200, 300, "All"]],
+      pageLength: '100',
+      columnDefs :[
+        {
+            width: '20px',
+            targets: 0,
+            visible: false
+        },
+        {
+            width: '10px',
+            targets: 1,
+            visible: true
+        },
+        {
+            width: '150px',
+            targets: 2,
+            visible: true
+        },
+        {
+            width: '25px',
+            targets: 3,
+            visible: true
+        },
+        {
+          "mRender": function ( data, type, row ) {
+              $rowdata = '<button class="btn btn-info" onClick="detailberita(\''+data+'\')">Detail Berita</button>'
+
+              return $rowdata;
+          },
+          "aTargets": [ 6 ]
+        },
+      ]
+    });
+  
+    
+  })
+
+  function detailberita(berita_id){
+    window.open(baseUrl+'/'+'detailBerita'+'?berita='+berita_id)
+  }
+</script>
+{% endblock %}

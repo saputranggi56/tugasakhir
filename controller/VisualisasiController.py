@@ -11,9 +11,15 @@ import re # Library regex
 import pandas as pd
 import numpy as np
 from nltk import FreqDist
+from cryptography.fernet import Fernet
+from Crypto.Cipher import DES
+import base64
 
 class VisualisasiController():
-    
+
+    KEY = '3411171120'
+    IV = 'AnggiSaputra'    
+
     def worldCloud(self):
         model             = Datalatih(CONN)
         loadDataPostif    = model.getDataByLabel(flagging="1")
@@ -49,6 +55,9 @@ class VisualisasiController():
         loadData          = model.getDataPercentage(portal=portal)
 
         return loadData
+        
+    def get_baseurl(self):
+        return self._base_url
 
     def loadDataByFeature(self):
         model       = Datalatih(CONN)
@@ -106,3 +115,28 @@ class VisualisasiController():
         dataResult['total'] = dataTotal
         # print(dataResult)
         return dataResult
+
+    def loadDataClassFlagging(self, flagging=''):
+        model   = Datalatih(CONN)
+        dataByClass = model.getAllDataByClass(flagging)
+         
+        # print(self.encrypt(sample_string=sample_string))
+        # print(self.decrypt(base64_string=self.encrypt(sample_string=sample_string)))
+    
+        for idx, x in enumerate(dataByClass):
+            dataByClass[idx][6] = self.encrypt(sample_string=str(dataByClass[idx][6]))
+           
+        return dataByClass
+
+    def encrypt(self, sample_string=""):
+        sample_string_bytes = sample_string.encode("ascii")
+        base64_bytes = base64.b64encode(sample_string_bytes)
+        base64_string = base64_bytes.decode("ascii")
+        return base64_string
+
+    def decrypt(self, base64_string=""):
+        base64_bytes = base64_string.encode("ascii")
+  
+        sample_string_bytes = base64.b64decode(base64_bytes)
+        sample_string = sample_string_bytes.decode("ascii")    
+        return sample_string
