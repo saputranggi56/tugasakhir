@@ -116,17 +116,51 @@ class VisualisasiController():
         # print(dataResult)
         return dataResult
 
-    def loadDataClassFlagging(self, flagging=''):
+    def loadDataClassFlagging(self, flagging='', portal=''):
         model   = Datalatih(CONN)
-        dataByClass = model.getAllDataByClass(flagging)
-         
-        # print(self.encrypt(sample_string=sample_string))
-        # print(self.decrypt(base64_string=self.encrypt(sample_string=sample_string)))
-    
+        dataByClass = model.getAllDataByClass(flagging, portal)
+             
         for idx, x in enumerate(dataByClass):
             dataByClass[idx][6] = self.encrypt(sample_string=str(dataByClass[idx][6]))
            
         return dataByClass
+
+    def loadDataBeritaById(self, berita_id=""):
+        berita_id = self.decrypt(base64_string=berita_id)
+        model   = Datalatih(CONN)
+        dataBerita = model.getDataBeritaById(berita_id)
+
+        berita_data = {}
+        berita_data['judul'] = dataBerita[0][3]
+        berita_data['portal'] = dataBerita[0][1]
+
+        berita_data['total_kalimat'] = 0
+        berita_data['total_kalimat_positif']   = 0
+        berita_data['total_kalimat_negatif']   = 0
+        berita_data['total_kalimat_netral']    = 0
+
+        text_berita = '<p class="text-justify h4 p-3" style="line-height: 1.5">'
+
+        for x in dataBerita:
+            if str(x[7]) == '1' :
+                tmp_text =  '<span class="bg-primary text-white">'+x[6].strip()+'</span>'
+                berita_data['total_kalimat_positif'] += 1
+            if str(x[7]) == '2' :
+                tmp_text =  '<span class="bg-danger text-white">'+x[6].strip()+'</span>'
+                berita_data['total_kalimat_negatif'] += 1
+            if str(x[7]) == '0' :
+                tmp_text =  '<span class="bg-info text-white">'+x[6].strip()+'</span>'
+                berita_data['total_kalimat_netral'] += 1
+
+            berita_data['total_kalimat'] += 1
+            
+            
+            text_berita = text_berita+' '+tmp_text
+
+        text_berita  = text_berita+'</p>'
+        berita_data['text_berita'] = text_berita
+
+        return berita_data
 
     def encrypt(self, sample_string=""):
         sample_string_bytes = sample_string.encode("ascii")
@@ -136,7 +170,6 @@ class VisualisasiController():
 
     def decrypt(self, base64_string=""):
         base64_bytes = base64_string.encode("ascii")
-  
         sample_string_bytes = base64.b64decode(base64_bytes)
         sample_string = sample_string_bytes.decode("ascii")    
         return sample_string

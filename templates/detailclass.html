@@ -1,8 +1,36 @@
 {% extends "main_layout.html" %}
 {% block content %}
+<style>
+  a.m_title {
+    text-transform: uppercase;
+  }
+</style>
 <h4>
-    Detail Data Class 
+    DETAIL DATA CLASS <a class="m_title">{{flagging}}</a>
 </h4>
+<div class="card mb-2">
+
+  <div class="card-body">
+    <div class="row">
+
+      <div class="col-md-4">
+        <div class="form-group">
+            <select class="form-control" name="portal_select" id="portal_select">
+              <option value="ALL"   {% if portal == 'ALL' %} selected {% endif %}>Semua Portal Berita</option>
+              <option value="TEMPO" {% if portal == 'TEMPO' %} selected {% endif %}>Tempo</option>
+              <option value="DETIK" {% if portal == 'DETIK' %} selected {% endif %}>Detik</option>
+              <option value="PR"    {% if portal == 'PR' %}selected {% endif %}>PR</option>
+              <option value="CNBC"  {% if portal == 'CNBC' %}selected {% endif %}>CNBC</option>
+            </select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-info btn-block btn-search" >Cari</button>
+      </div>
+    </div>
+  </div>
+ 
+</div>
 
 <div class="card">
   <div class="card-body">
@@ -20,6 +48,15 @@
     }
     myVar = myFunc({{data|tojson}})
     baseUrl   = '{{baseUrl}}'
+
+    $('.btn-search').on('click', function(){
+      portal = $('#portal_select').val()
+      
+      window.location.href = baseUrl+'/detailclass?class='+'{{flagging}}'+'&portal='+portal;
+
+    })
+
+    
 
     var data = myVar
     var table = $('#example').DataTable({

@@ -19,7 +19,15 @@
         </div>
     </div>
 </div>
-
+<div class="row mt-2">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+          <div id="myChartBar2" style="height:350px;"></div>
+      </div>
+  </div>
+  </div>
+</div>
 <div class="row mt-2">
     <div class="col-md-12">
         <div class="card">
@@ -46,15 +54,7 @@
     </div>
 </div>
 
-<div class="row mt-2">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-body">
-          <div id="myChartBar2" style="height:350px;"></div>
-      </div>
-  </div>
-  </div>
-</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.1/echarts.min.js"></script>
 <!-- <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.js" integrity="sha512-64PuQoA1/rGxeXwhWJRNZl25TjBPhQWeQ6x8h6UC54gQT7xFvTio//dLKg2MiAc3/4Tf+uoLKPzl+QuX87fssA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
@@ -131,7 +131,7 @@
       paramClass = params.data.name
       paramClass = paramClass.toLowerCase()
 
-      window.open(baseUrl+'/'+'detailclass'+'?class='+paramClass)
+      window.open(baseUrl+'/'+'detailclass'+'?class='+paramClass+'&portal=ALL')
 
     });
 
@@ -219,6 +219,14 @@
          
         ]
     };
+
+    myChartBar.on('click', function(params) {
+      paramClass = params.seriesName.toLowerCase()
+      portal = params.name
+      
+      window.open(baseUrl+'/'+'detailclass'+'?class='+paramClass+'&portal='+portal)
+
+    });
     
     myChartBar.setOption(optionBar);
     var myChartBarFeature = echarts.init(document.getElementById('myChartBar2'));

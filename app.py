@@ -85,8 +85,10 @@ def detailclass():
 
     baseUrl = scheme+'://'+netloc
 
-    flagging = request.args.get('class')
+    flagging_b = request.args.get('class')
+    portal     = request.args.get('portal')
 
+    flagging=flagging_b
     if flagging == 'negatif':
         flagging = '2'
     if flagging == 'positif':
@@ -95,16 +97,19 @@ def detailclass():
         flagging = '0'
 
     visualisasi = VisualisasiController()
-    data = visualisasi.loadDataClassFlagging(flagging)
-    return render_template("detailclass.html", data=data,baseUrl=baseUrl)
+    data = visualisasi.loadDataClassFlagging(flagging, portal)
+    return render_template("detailclass.html", data=data,baseUrl=baseUrl, flagging=flagging_b, portal=portal)
     # return data
 
 @app.route("/detailBerita")
 def detailBerita():
     berita_id = request.args.get('berita')
-
-    return berita_id
     
+    visualisasi = VisualisasiController()
+    data = visualisasi.loadDataBeritaById(berita_id)
+    # return data
+    return render_template('berita.phtml', data=data)
+
 @app.route('/formklasifikasi')
 def formklasifikasi():
     return render_template('formklasifikasi.html')

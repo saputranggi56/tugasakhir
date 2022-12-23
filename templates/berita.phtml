@@ -1,0 +1,60 @@
+{% extends "main_layout.html" %}
+{% block content %}
+<style>
+  .borderless td, .borderless th {
+      border: none;
+  }
+</style>
+<!-- <div class="card"> -->
+  
+
+  <div class="legend p-3">
+    <h6>Legend</h6>
+    <span class="badge badge-primary">Class Positif</span>
+    <span class="badge badge-danger">Class Negatif</span>
+    <span class="badge badge-info">Class Netral</span>
+    <hr>
+  </div>
+  <h3 class="text-center font-weight-bold mb-4">
+      {{data.judul}}
+  </h3>
+  
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card p-2 ">
+        <table class="table borderless">
+          <tr>
+            <td>Total Kalimat</td>
+            <td>:</td>
+            <td>{{data.total_kalimat}}</td>
+          </tr>
+          <tr>
+            <td>Total Kalimat <span class="badge badge-primary">Positif</span></td>
+            <td>:</td>
+            <td>{{data.total_kalimat_positif}}</td>
+          </tr>
+          <tr>
+            <td>Total Kalimat <span class="badge badge-danger">Negatif</span></td>
+            <td>:</td>
+            <td>{{data.total_kalimat_negatif}}</td>
+          </tr>
+          <tr>
+            <td>Total Kalimat <span class="badge badge-info">Netral</span></td>
+            <td>:</td>
+            <td>{{data.total_kalimat_netral}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <di class="col-md-8">
+
+      <div class="card ">
+
+        {{data.text_berita}}
+      </div>
+
+    </di>
+  </div>
+  
+<!-- </div> -->
+{% endblock %}

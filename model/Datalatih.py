@@ -80,9 +80,40 @@ class Datalatih():
 
         return data
 
-    def getAllDataByClass(self, flagging = ''):
+    def getAllDataByClass(self, flagging = '', portal=''):
         cur = self.storage.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        s = "SELECT url, portal, judul, publis_date, kalimat, flagging, berita_id  FROM flagging_kalimat WHERE flagging = '"+flagging+"' ORDER BY portal,url, berita_id"
+        s = """SELECT 
+                url, 
+                portal, 
+                judul, 
+                publis_date, 
+                kalimat, 
+                flagging, 
+                berita_id  
+            FROM 
+                flagging_kalimat 
+            WHERE 
+                flagging = '"""+flagging+"""'"""
+
+        if portal == 'ALL':
+            s+= """ """
+        else:
+            s+= """ AND portal = '"""+portal+"""'"""
+            
+
+        s+= """ ORDER BY 
+                portal,
+                url,
+                berita_id"""
+                
+        cur.execute(s)
+        data = cur.fetchall()
+
+        return data
+
+    def getDataBeritaById(self, berita_id = ''):
+        cur = self.storage.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        s = "SELECT * FROM flagging_kalimat WHERE berita_id = '"+berita_id+"'"
         cur.execute(s)
         data = cur.fetchall()
 
