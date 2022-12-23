@@ -22,12 +22,12 @@ from urllib.parse import urlsplit, urlunsplit
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "TugasAkhir3411171120"
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.sqlite"
-DB_HOST = "localhost"
-DB_NAME = "skripsi"
-DB_USER = "postgres"
-DB_PASS = ""
+# DB_HOST = "localhost"
+# DB_NAME = "skripsi"
+# DB_USER = "postgres"
+# DB_PASS = ""
 
-conn    = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
+# conn    = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 
 @app.route("/index")
 def indexku():
