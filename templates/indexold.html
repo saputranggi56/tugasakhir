@@ -1,0 +1,23 @@
+<html>
+    <head></head>
+    <body>
+        <div>
+            {% for data in value %}
+                <li>{{ data }}</li>
+            {% endfor %}
+        </div>
+        <div>
+            {% if value[0] == 'selas' %}
+                <p>Senin</p>
+            {% else %}
+                <p>Bukan da</p>
+            {% endif  %}
+        </div>
+
+        <div>
+            {% set hari = 'jumat berkah' %}
+            <p>{{ hari }}<p>
+        </div>
+    </body>
+
+ </html>

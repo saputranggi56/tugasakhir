@@ -1,0 +1,299 @@
+{% extends "main_layout.html" %}
+{% block content %}
+
+<h4>Visualisasi</h4>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <div id="myChartPie"  style="height:350px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-body">
+                <div id="myChartBar" style="height:350px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+    <div class="col-md-12">
+        <div class="card">
+            <!-- <div class="card-header text-center">
+                <h4 class="font-weight-bold">World Cloud</h4>
+            </div> -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5 class="text-center font-weight-bold">Positif</h5>
+                        <img class="img-thumbnail rounded" src="{{url_for('static', filename='Positif.png')}}" width="100%"alt="">
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="text-center font-weight-bold">Negatif</h5>
+                        <img class="img-thumbnail rounded" src="{{url_for('static', filename='Negatif.png')}}" width="100%" alt="">
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="text-center font-weight-bold">Netral</h5>
+                        <img class="img-thumbnail rounded" src="{{url_for('static', filename='Netral.png')}}" width="100%" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-2">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+          <div id="myChartBar2" style="height:350px;"></div>
+      </div>
+  </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.1/echarts.min.js"></script>
+<!-- <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.js" integrity="sha512-64PuQoA1/rGxeXwhWJRNZl25TjBPhQWeQ6x8h6UC54gQT7xFvTio//dLKg2MiAc3/4Tf+uoLKPzl+QuX87fssA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<!-- <script type="text" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.min.js" integrity="sha512-MC1YbhseV2uYKljGJb7icPOjzF2k6mihfApPyPhEAo3NsLUW0bpgtL4xYWK1B+1OuSrUkfOTfhxrRKCz/Jp3rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+<script>
+    function myFunc(vars) {
+        return vars
+    }
+    myVar = myFunc({{data|tojson}})
+    myVarFitur = myFunc({{fiturdata|tojson}})
+    console.log(myVarFitur)
+    var myChartPie = echarts.init(document.getElementById('myChartPie'));
+
+    optionPie = {
+        title: {
+          text: 'Data by Class',
+          subtext: 'News Sentence',
+          left: 'center'
+        },
+        tooltip: {
+          trigger: 'item'
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left'
+        },
+        series: [
+          {
+            name: 'Access From',
+            type: 'pie',
+            radius: '50%',
+            data: [
+                { 
+                    value   : myVar.all[0][4], 
+                    name    : 'Positif', 
+                    label   : {
+                                show: true,
+                                formatter: 'Positif {c} %',
+                              }
+                },
+                { 
+                    value   :  myVar.all[0][5], 
+                    name    : 'Negatif', 
+                    label   : {
+                                show: true,
+                                formatter: 'Negatif {c} %',
+                              }
+                },
+                { 
+                    value   :  myVar.all[0][6], 
+                    name    : 'Netral', 
+                    label   : {
+                                show: true,
+                                formatter: 'Netral {c} %',
+                              }
+                },
+              
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      };
+
+    myChartPie.setOption(optionPie);
+    
+    var myChartBar = echarts.init(document.getElementById('myChartBar'));
+    optionBar = {
+        title: {
+            text: 'Percentage Class By Portal',
+            subtext: 'News Sentence',
+            left: 'center'
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+          }
+        },
+        legend: {
+            type: 'scroll',
+            left:10,
+            top : 0
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'value',
+          axisLabel: {
+            formatter: '{value} %',
+            align: 'center'
+          }
+        },
+        yAxis: {
+          type: 'category',
+          data: ['CNBC', 'PR', 'DETIK', 'TEMPO'],
+          axisLabel: {
+            color: 'black'
+          },
+        },
+        
+        series: [
+          {
+            name: 'Positif',
+            type: 'bar',
+            stack: 'category',
+            label: {
+              show: true,
+              formatter: '{a} {c} %',
+
+            },
+            emphasis: {
+              focus: 'series'
+            },
+            data: [myVar.cnbc[0][4], 30, myVar.detik[0][4], myVar.tempo[0][4]]
+          },
+          {
+            name: 'Negatif',
+            type: 'bar',
+            stack: 'category',
+            label: {
+              show: true,
+              formatter: '{a} {c} %',
+            },
+            emphasis: {
+              focus: 'series',
+              formatter: '{a} {c} %',
+            },
+            data: [myVar.cnbc[0][5], 40, myVar.detik[0][5], myVar.tempo[0][5]]
+          },
+          {
+            name: 'Netral',
+            type: 'bar',
+            stack: 'category',
+            label: {
+              show: true,
+              formatter: '{a} {c} %',
+            },
+            emphasis: {
+              focus: 'series'
+            },
+            data: [myVar.cnbc[0][6], 30, myVar.detik[0][6], myVar.tempo[0][6]]
+          },
+         
+        ]
+    };
+    
+    myChartBar.setOption(optionBar);
+    var myChartBarFeature = echarts.init(document.getElementById('myChartBar2'));
+    optionBarFeature = {
+      title: {
+          text: 'Sentiment By Feature',
+          subtext: 'News Sentence',
+          left: 'center'
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+        }
+      },
+      legend: {
+          type: 'scroll',
+          left:10,
+          top : 0
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'value',
+        axisLabel: {
+          formatter: '{value} ',
+          align: 'center'
+        }
+      },
+      yAxis: {
+        type: 'category',
+        data: myVarFitur.words,
+        axisLabel: {
+          color: 'black'
+        },
+      },
+      
+      series: [
+        {
+          name: 'Positif',
+          type: 'bar',
+          stack: 'category',
+          label: {
+            show: true,
+
+          },
+          emphasis: {
+            focus: 'series'
+          },
+          data: myVarFitur.total[0]
+        },
+        {
+          name: 'Negatif',
+          type: 'bar',
+          stack: 'category',
+          label: {
+            show: true,
+          },
+          emphasis: {
+            focus: 'series',
+          },
+          data: myVarFitur.total[1]
+        },
+        {
+          name: 'Netral',
+          type: 'bar',
+          stack: 'category',
+          label: {
+            show: true,
+          },
+          emphasis: {
+            focus: 'series'
+          },
+          data: myVarFitur.total[2]
+        },
+       
+      ]
+  };
+
+    myChartBarFeature.setOption(optionBarFeature);
+
+</script>
+{% endblock %}

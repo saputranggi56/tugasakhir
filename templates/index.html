@@ -1,0 +1,38 @@
+{% extends "main_layout.html" %}
+{% block content %}
+<h4>
+    Dashboard
+</h4>
+<div class="card">
+   
+    <div class="card-body">
+      <h5 class="card-title text-center fw-bold font-weight-bold">Visualisasi Sentimen Berita Covid-19 Berdasarkan Naive Bayes Classifier</h5>
+    
+          <img src="{{url_for('static', filename='unjani.png')}}" class="img-fluid rounded mx-auto d-block" width="10%" alt="test" >
+
+      <div class="mt-3 text-center ">
+            <h6 class="font-weight-bold">Anggi Saputra</h6>
+            <h6 class="font-weight-bold">3411171120</h6>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <h6>Pembimbing 1</h6>
+          <h6>Ridwan Ilyas, S.Kom., M.T</h6>
+          <h6>NID. 4121.829.90</h6>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+        <div class="col-md-4 text-center">
+          <h6>Pembimbing 2</h6>
+          <h6>Fatan Kasyidi, S.Kom., M.T</h6>
+          <h6>NID. 4121.009.92</h6>
+        </div>
+      </div>
+
+    
+      
+    </div>
+  </div>
+{% endblock %}
