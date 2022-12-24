@@ -28,7 +28,6 @@ DB_NAME = "news"
 DB_USER = "postgres"
 DB_PASS = "khansia215758"
 
-
 @app.route("/visualisasi")
 def visualisasi():
     conn    = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
@@ -124,7 +123,6 @@ def view_session_1():
     except:
         return "session habis"
 
-
 @app.route('/halaman/logout')
 def logout_session_1():
     session.pop("nilaiku")
@@ -146,7 +144,6 @@ def coba():
     return data
 
 @app.route('/handleklasifikasi', methods=['POST'])
-
 def handle_klasifikasi():
     afterPraproses = 'ada'
     if request.method == 'POST':
@@ -194,8 +191,6 @@ def handle_klasifikasi():
         model.worldCLoud(kalimat_berita=kalimat_berita)
 
     return render_template("handleklasifikasi.html", data=array_result, dataHeader=objHeader)
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
