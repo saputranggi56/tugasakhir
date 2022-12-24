@@ -19,9 +19,15 @@ class VisualisasiController():
 
     KEY = '3411171120'
     IV = 'AnggiSaputra'    
+    
+    G_CONN = ''
+
+    def __init__(self, connection=""):
+        VisualisasiController.G_CONN = connection
+        # print(connection)
 
     def worldCloud(self):
-        model             = Datalatih(CONN)
+        model             = Datalatih(VisualisasiController.G_CONN)
         loadDataPostif    = model.getDataByLabel(flagging="1")
         loadDataNegatif   = model.getDataByLabel(flagging="2")
         loadDataNetral    = model.getDataByLabel(flagging="0")
@@ -51,7 +57,7 @@ class VisualisasiController():
         return 'success'
 
     def loadDataPercentage(self, portal=""):
-        model             = Datalatih(CONN)
+        model             = Datalatih(VisualisasiController.G_CONN)
         loadData          = model.getDataPercentage(portal=portal)
 
         return loadData
@@ -60,7 +66,7 @@ class VisualisasiController():
         return self._base_url
 
     def loadDataByFeature(self):
-        model       = Datalatih(CONN)
+        model       = Datalatih(VisualisasiController.G_CONN)
         loadData    = model.getData()
 
         counts = defaultdict(int)
@@ -117,7 +123,7 @@ class VisualisasiController():
         return dataResult
 
     def loadDataClassFlagging(self, flagging='', portal=''):
-        model   = Datalatih(CONN)
+        model   = Datalatih(VisualisasiController.G_CONN)
         dataByClass = model.getAllDataByClass(flagging, portal)
              
         for idx, x in enumerate(dataByClass):
@@ -127,7 +133,7 @@ class VisualisasiController():
 
     def loadDataBeritaById(self, berita_id=""):
         berita_id = self.decrypt(base64_string=berita_id)
-        model   = Datalatih(CONN)
+        model   = Datalatih(VisualisasiController.G_CONN)
         dataBerita = model.getDataBeritaById(berita_id)
 
         berita_data = {}

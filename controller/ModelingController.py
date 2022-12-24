@@ -19,11 +19,15 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 class ModelingController():
-    def __init__(self, dataPraproses=""):
+    G_CONN = ''
+
+    def __init__(self, dataPraproses="", connection=""):
         self.dataPraproses = dataPraproses
+        ModelingController.G_CONN = connection
+
 
     def getDataLatih(self):
-        model       = Datalatih(CONN)
+        model       = Datalatih(ModelingController.G_CONN)
         loadData    = model.getData()
         
         return  loadData

@@ -105,7 +105,6 @@ class Datalatih():
                 portal,
                 url,
                 berita_id"""
-                
         cur.execute(s)
         data = cur.fetchall()
 

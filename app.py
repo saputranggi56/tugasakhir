@@ -17,35 +17,23 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn.model_selection import train_test_split
 import array
 from urllib.parse import urlsplit, urlunsplit
+from config.dbconfig import CONN
 
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "TugasAkhir3411171120"
-# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///example.sqlite"
-# DB_HOST = "localhost"
-# DB_NAME = "skripsi"
-# DB_USER = "postgres"
-# DB_PASS = ""
 
-# conn    = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
-
-@app.route("/index")
-def indexku():
-    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    s = "SELECT * FROM temp_flagging"
-    cur.execute(s)
-    data = cur.fetchall()
-    # print('masuk')
-    
-    nilaiku = 100
-
-    hari = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu']
-    return render_template("indexold.html", value=hari, data=data)
+DB_HOST = "103.126.28.66"
+DB_NAME = "news"
+DB_USER = "postgres"
+DB_PASS = "khansia215758"
 
 
 @app.route("/visualisasi")
 def visualisasi():
-    visualisasi = VisualisasiController()
+    conn    = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
+
+    visualisasi = VisualisasiController(connection=CONN)
     data = visualisasi.worldCloud()
 
     url = request.base_url
@@ -96,7 +84,7 @@ def detailclass():
     if flagging == 'netral':
         flagging = '0'
 
-    visualisasi = VisualisasiController()
+    visualisasi = VisualisasiController(connection=CONN)
     data = visualisasi.loadDataClassFlagging(flagging, portal)
     return render_template("detailclass.html", data=data,baseUrl=baseUrl, flagging=flagging_b, portal=portal)
     # return data
@@ -105,7 +93,7 @@ def detailclass():
 def detailBerita():
     berita_id = request.args.get('berita')
     
-    visualisasi = VisualisasiController()
+    visualisasi = VisualisasiController(connection=CONN)
     data = visualisasi.loadDataBeritaById(berita_id)
     # return data
     return render_template('berita.phtml', data=data)
@@ -162,7 +150,9 @@ def coba():
 def handle_klasifikasi():
     afterPraproses = 'ada'
     if request.method == 'POST':
-        
+        conn    = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
+        visualisasi = VisualisasiController(connection=conn)
+
         kalimat_berita = request.form['kalimat_berita']
         # print(kalimat_berita)
         controllerBerita = DataBeritaController()
@@ -170,7 +160,7 @@ def handle_klasifikasi():
 
         # controllerPraProses = PraprosesController()
         # array_result = []
-        model = ModelingController()
+        model = ModelingController(connection=CONN)
 
         array_result = []
         objHeader = {}
