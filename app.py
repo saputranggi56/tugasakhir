@@ -23,14 +23,14 @@ from config.dbconfig import CONN
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "TugasAkhir3411171120"
 
-DB_HOST = "103.126.28.66"
-DB_NAME = "news"
-DB_USER = "postgres"
-DB_PASS = "khansia215758"
+# DB_HOST = "103.126.28.66"
+# DB_NAME = "news"
+# DB_USER = "postgres"
+# DB_PASS = "khansia215758"
+
 
 @app.route("/visualisasi")
 def visualisasi():
-    conn    = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 
     visualisasi = VisualisasiController(connection=CONN)
     data = visualisasi.worldCloud()
@@ -130,7 +130,36 @@ def logout_session_1():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+
+    visualisasi = VisualisasiController(connection=CONN)
+    data = visualisasi.worldCloud()
+
+    url = request.base_url
+    split_url   = urlsplit(url)
+
+    scheme      = split_url.scheme 
+    netloc      = split_url.netloc
+    port        = split_url.port
+
+    baseUrl = scheme+'://'+netloc
+
+    dataAll = visualisasi.loadDataPercentage()
+
+    dataCnbc = visualisasi.loadDataPercentage('CNBC')
+    dataDetik = visualisasi.loadDataPercentage('DETIK')
+    dataTempo = visualisasi.loadDataPercentage('TEMPO')
+    
+    dataReturn = {}
+    dataReturn['all'] = dataAll
+    dataReturn['cnbc'] = dataCnbc
+    dataReturn['detik'] = dataDetik
+    dataReturn['tempo'] = dataTempo
+    
+
+    featureData = visualisasi.loadDataByFeature()
+
+    return render_template('visualization.html', data=dataReturn, fiturdata=featureData, baseUrl=baseUrl)
+    # return render_template("index.html")
 
 @app.route("/redirect")
 def ayo_redirect():
@@ -147,7 +176,6 @@ def coba():
 def handle_klasifikasi():
     afterPraproses = 'ada'
     if request.method == 'POST':
-        conn    = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
         visualisasi = VisualisasiController(connection=conn)
 
         kalimat_berita = request.form['kalimat_berita']
