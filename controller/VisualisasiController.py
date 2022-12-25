@@ -1,4 +1,4 @@
-from config.dbconfig import CONN
+# from config.dbconfig import CONN
 from model.Datalatih import Datalatih
 from controller.DataBeritaController import DataBeritaController
 from collections import defaultdict
@@ -168,12 +168,22 @@ class VisualisasiController():
 
         return berita_data
 
+    def loadDataSentence(self, sentence="", p_portal="" ,p_class=""):
+        model             = Datalatih(VisualisasiController.G_CONN)
+        loadData          = model.getDataBySentence(sentence=sentence,  p_portal=p_portal ,p_class=p_class)
+        
+        
+        for idx, x in enumerate(loadData):
+            loadData[idx][5] = self.encrypt(sample_string=str(loadData[idx][5]))
+
+        return loadData
+
     def encrypt(self, sample_string=""):
         sample_string_bytes = sample_string.encode("ascii")
         base64_bytes = base64.b64encode(sample_string_bytes)
         base64_string = base64_bytes.decode("ascii")
         return base64_string
-
+    
     def decrypt(self, base64_string=""):
         base64_bytes = base64_string.encode("ascii")
         sample_string_bytes = base64.b64decode(base64_bytes)

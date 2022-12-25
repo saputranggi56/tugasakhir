@@ -117,3 +117,32 @@ class Datalatih():
         data = cur.fetchall()
 
         return data
+
+    def getDataBySentence(self, sentence = '', p_portal="" ,p_class=""):
+        cur = self.storage.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        s = """
+                SELECT 
+                    url, 
+                    portal, 
+                    judul, 
+                    after_praproses, 
+                    flagging,
+                    berita_id
+                FROM 
+                    flagging_kalimat 
+                WHERE 
+                    after_praproses like '%"""+sentence+"%'"""
+        
+        if p_portal != 'all':
+            s+= """ AND portal = '"""+p_portal+"""'"""
+        
+        if p_class != 'all':
+            s+= """ AND flagging = '"""+p_class+"""'"""
+        
+       
+        
+
+        cur.execute(s)
+        data = cur.fetchall()
+
+        return data

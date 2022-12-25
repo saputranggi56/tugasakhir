@@ -1,7 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h4>Visualisasi</h4>
+<style>
+  .bg-header{
+    background-color: #000;
+    color: #ffff;
+  }
+</style>
+<h3 class="pt-3 font-weight-bold">Visualization</h3>
 
 <div class="row">
   <div class="col-md-12">
@@ -35,10 +41,14 @@
 <div class="row">
     <div class="col-md-5 p-2">
         <div class="card">
+            <div class="card-header text-center bg-header">
+              <div class="font-weight-bold text-center h4 mb-0">Data By Class</div>
+              <div class="text-muted">News Sentence</div>
+            </div>
             <div class="card-body">
-                <div class="alert alert-info alert-dismissable">
+                <div class="alert alert-dark alert-dismissable">
                   <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                  <strong>Klik Bar untuk melihat data secara detail!</strong>
+                  <strong>Click <span class="font-weight-bold text-danger">Bar</span> to see the details of the data !</strong>
                 </div>
                 <div id="myChartPie"  style="height:350px;"></div>
             </div>
@@ -46,10 +56,14 @@
     </div>
     <div class="col-md-7 p-2">
         <div class="card">
+          <div class="card-header text-center bg-header">
+            <div class="font-weight-bold text-center h4 mb-0">Data By News Portal</div>
+            <div class="text-muted">News Sentence</div>
+          </div>
           <div class="card-body">
-              <div class="alert alert-info alert-dismissable">
+              <div class="alert alert-dark alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                <strong>Klik Bar untuk melihat data secara detail!</strong>
+                <strong>Click <span class="font-weight-bold text-danger">Bar</span> to see the details of the data!</strong>
               </div>
                 <div id="myChartBar" style="height:350px;"></div>
             </div>
@@ -59,10 +73,14 @@
 <div class="row mt-2">
   <div class="col-md-12">
     <div class="card">
+      <div class="card-header text-center bg-header">
+        <div class="font-weight-bold text-center h4 mb-0">Data By Feature</div>
+        <div class="text-muted">News Sentence</div>
+      </div>
       <div class="card-body">
-          <div class="alert alert-info alert-dismissable">
+          <div class="alert alert-dark alert-dismissable">
             <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <strong>Klik Bar untuk melihat data secara detail!</strong>
+            <strong>Click <span class="font-weight-bold text-danger">Bar</span> to see the details of the data !</strong>
           </div>
           <div id="myChartBar2" style="height:350px;"></div>
       </div>
@@ -72,23 +90,32 @@
 <div class="row mt-2">
     <div class="col-md-12">
         <div class="card">
-            <!-- <div class="card-header text-center">
-                <h4 class="font-weight-bold">World Cloud</h4>
-            </div> -->
+          <div class="card-header text-center bg-header">
+            <div class="font-weight-bold text-center h4 mb-0">World Cloud</div>
+          </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h5 class="text-center font-weight-bold">Positif</h5>
-                        <img class="img-thumbnail rounded" src="{{url_for('static', filename='Positif.png')}}" width="100%"alt="">
+                <div class="card-deck">
+                  <div class="card">
+                    <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Positif.png')}}" width="100%"alt="">
+                    <div class="card-body">
+                      <h5 class="card-title font-weight-bold">Positive Class</h5>
+                      <p class="card-text">Positive class features based on the frequency of occurrence of the data</p>
                     </div>
-                    <div class="col-md-4">
-                        <h5 class="text-center font-weight-bold">Negatif</h5>
-                        <img class="img-thumbnail rounded" src="{{url_for('static', filename='Negatif.png')}}" width="100%" alt="">
+                  </div>
+                  <div class="card">
+                    <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Negatif.png')}}" width="100%"alt="">
+                    <div class="card-body">
+                      <h5 class="card-title font-weight-bold">Negative Class</h5>
+                      <p class="card-text">Nositive class features based on the frequency of occurrence of the data</p>
                     </div>
-                    <div class="col-md-4">
-                        <h5 class="text-center font-weight-bold">Netral</h5>
-                        <img class="img-thumbnail rounded" src="{{url_for('static', filename='Netral.png')}}" width="100%" alt="">
+                  </div>
+                  <div class="card">
+                    <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Netral.png')}}" width="100%"alt="">
+                    <div class="card-body">
+                      <h5 class="card-title font-weight-bold">Netral Class</h5>
+                      <p class="card-text">Nositive class features based on the frequency of occurrence of the data</p>
                     </div>
+                  </div>
                 </div>
             </div>
         </div>
@@ -111,11 +138,11 @@
     var myChartPie = echarts.init(document.getElementById('myChartPie'));
 
     optionPie = {
-        title: {
-          text: 'Data by Class',
-          subtext: 'News Sentence',
-          left: 'center'
-        },
+        //title: {
+        //  text: 'Data by Class',
+        //  subtext: 'News Sentence',
+        //  left: 'center'
+        //},
         tooltip: {
           trigger: 'item'
         },
@@ -131,18 +158,18 @@
             data: [
                 { 
                     value   : myVar.all[0][4], 
-                    name    : 'Positif', 
+                    name    : 'Positive', 
                     label   : {
                                 show: true,
-                                formatter: 'Positif {c} %',
+                                formatter: 'Positive {c} %',
                               }
                 },
                 { 
                     value   :  myVar.all[0][5], 
-                    name    : 'Negatif', 
+                    name    : 'Negative', 
                     label   : {
                                 show: true,
-                                formatter: 'Negatif {c} %',
+                                formatter: 'Negative {c} %',
                               }
                 },
                 { 
@@ -172,7 +199,7 @@
       paramClass = params.data.name
       paramClass = paramClass.toLowerCase()
 
-      window.open(baseUrl+'/'+'detailclass'+'?class='+paramClass+'&portal=ALL')
+      location.href = baseUrl+'/'+'detailclass'+'?class='+paramClass+'&portal=ALL'
 
     });
 
@@ -217,7 +244,7 @@
         
         series: [
           {
-            name: 'Positif',
+            name: 'Positive',
             type: 'bar',
             stack: 'category',
             label: {
@@ -231,7 +258,7 @@
             data: [myVar.cnbc[0][4], 30, myVar.detik[0][4], myVar.tempo[0][4]]
           },
           {
-            name: 'Negatif',
+            name: 'Negative',
             type: 'bar',
             stack: 'category',
             label: {
@@ -265,18 +292,18 @@
       paramClass = params.seriesName.toLowerCase()
       portal = params.name
       
-      window.open(baseUrl+'/'+'detailclass'+'?class='+paramClass+'&portal='+portal)
+      location.href = baseUrl+'/'+'detailclass'+'?class='+paramClass+'&portal='+portal
 
     });
     
     myChartBar.setOption(optionBar);
     var myChartBarFeature = echarts.init(document.getElementById('myChartBar2'));
     optionBarFeature = {
-      title: {
-          text: 'Sentiment By Feature',
-          subtext: 'News Sentence',
-          left: 'center'
-      },
+    //title: {
+    //    text: 'Sentiment By Feature',
+    //    subtext: 'News Sentence',
+    //    left: 'center'
+    //},
       tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -311,7 +338,7 @@
       
       series: [
         {
-          name: 'Positif',
+          name: 'Positive',
           type: 'bar',
           stack: 'category',
           label: {
@@ -324,7 +351,7 @@
           data: myVarFitur.total[0]
         },
         {
-          name: 'Negatif',
+          name: 'Negative',
           type: 'bar',
           stack: 'category',
           label: {
@@ -352,6 +379,12 @@
   };
 
     myChartBarFeature.setOption(optionBarFeature);
+    myChartBarFeature.on('click', function(params) {
+      var name = params.name
+      
+      location.href = baseUrl+'/'+'feature'+'?sentence='+name+'&class=all&portal=all'
+
+    });
 
 </script>
 {% endblock %}

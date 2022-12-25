@@ -7,4 +7,11 @@ DB_NAME = "news"
 DB_USER = "postgres"
 DB_PASS = "khansia215758"
 
-CONN    = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
+
+connection_kwargs = {
+    "dbname": "news",
+    "user": "postgres",
+    "password": "khansia215758",
+    "host": "103.126.28.66",
+}
+

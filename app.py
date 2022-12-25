@@ -17,22 +17,19 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn.model_selection import train_test_split
 import array
 from urllib.parse import urlsplit, urlunsplit
-from config.dbconfig import CONN
+from config.dbconfig import connection_kwargs
 
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "TugasAkhir3411171120"
 
-# DB_HOST = "103.126.28.66"
-# DB_NAME = "news"
-# DB_USER = "postgres"
-# DB_PASS = "khansia215758"
-
 
 @app.route("/visualisasi")
 def visualisasi():
+    
+    mycon    = psycopg2.connect(**connection_kwargs)
 
-    visualisasi = VisualisasiController(connection=CONN)
+    visualisasi = VisualisasiController(connection=mycon)
     data = visualisasi.worldCloud()
 
     url = request.base_url
@@ -76,14 +73,16 @@ def detailclass():
     portal     = request.args.get('portal')
 
     flagging=flagging_b
-    if flagging == 'negatif':
+    if flagging == 'negative':
         flagging = '2'
-    if flagging == 'positif':
+    if flagging == 'positive':
         flagging = '1'
     if flagging == 'netral':
         flagging = '0'
 
-    visualisasi = VisualisasiController(connection=CONN)
+    mycon    = psycopg2.connect(**connection_kwargs)
+
+    visualisasi = VisualisasiController(connection=mycon)
     data = visualisasi.loadDataClassFlagging(flagging, portal)
     return render_template("detailclass.html", data=data,baseUrl=baseUrl, flagging=flagging_b, portal=portal)
     # return data
@@ -91,8 +90,9 @@ def detailclass():
 @app.route("/detailBerita")
 def detailBerita():
     berita_id = request.args.get('berita')
-    
-    visualisasi = VisualisasiController(connection=CONN)
+    mycon    = psycopg2.connect(**connection_kwargs)
+
+    visualisasi = VisualisasiController(connection=mycon)
     data = visualisasi.loadDataBeritaById(berita_id)
     # return data
     return render_template('berita.phtml', data=data)
@@ -130,8 +130,9 @@ def logout_session_1():
 
 @app.route("/")
 def index():
+    mycon    = psycopg2.connect(**connection_kwargs)
 
-    visualisasi = VisualisasiController(connection=CONN)
+    visualisasi = VisualisasiController(connection=mycon)
     data = visualisasi.worldCloud()
 
     url = request.base_url
@@ -165,12 +166,20 @@ def index():
 def ayo_redirect():
     return redirect(url_for("about"))   
 
-@app.route("/cek")
-def coba(): 
-    visualisasi = VisualisasiController()
-    data = visualisasi.worldCloud()
-    # print('masuk')
-    return data
+@app.route("/feature")
+def feature(): 
+    mycon    = psycopg2.connect(**connection_kwargs)
+
+    p_sentence     = request.args.get('sentence')
+    p_portal       = request.args.get('portal')
+    p_class        = request.args.get('class')
+
+    visualisasi = VisualisasiController(connection=mycon)
+
+    data = visualisasi.loadDataSentence(sentence=p_sentence, p_class=p_class, p_portal=p_portal)
+    # return data
+    return render_template('detailfeature.html', data=data, sentence=p_sentence, p_class=p_class, p_portal=p_portal)
+
 
 @app.route('/handleklasifikasi', methods=['POST'])
 def handle_klasifikasi():
@@ -185,7 +194,8 @@ def handle_klasifikasi():
 
         # controllerPraProses = PraprosesController()
         # array_result = []
-        model = ModelingController(connection=CONN)
+        mycon    = psycopg2.connect(**connection_kwargs)
+        model = ModelingController(connection=mycon)
 
         array_result = []
         objHeader = {}

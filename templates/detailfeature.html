@@ -4,12 +4,14 @@
   a.m_title {
     text-transform: uppercase;
   }
+
   .a_middle{
     vertical-align:middle!important;
   }
+
 </style>
 <h4>
-    DETAIL DATA CLASS <a class="m_title">{{flagging}}</a>
+    DETAIL DATA FEATURE "<a class="m_title">{{sentence}}</a>"
 </h4>
 <div class="card mb-2">
 
@@ -19,11 +21,21 @@
       <div class="col-md-4">
         <div class="form-group">
             <select class="form-control" name="portal_select" id="portal_select">
-              <option value="ALL"   {% if portal == 'ALL' %} selected {% endif %}>All News Portal</option>
-              <option value="TEMPO" {% if portal == 'TEMPO' %} selected {% endif %}>Tempo</option>
-              <option value="DETIK" {% if portal == 'DETIK' %} selected {% endif %}>Detik</option>
-              <option value="PR"    {% if portal == 'PR' %}selected {% endif %}>PR</option>
-              <option value="CNBC"  {% if portal == 'CNBC' %}selected {% endif %}>CNBC</option>
+              <option value="all"   {% if p_portal == 'all' %} selected {% endif %}>All News Portal </option>
+              <option value="TEMPO" {% if p_portal == 'TEMPO' %} selected {% endif %}>Tempo</option>
+              <option value="DETIK" {% if p_portal == 'DETIK' %} selected {% endif %}>Detik</option>
+              <option value="PR"    {% if p_portal == 'PR' %}selected {% endif %}>PR</option>
+              <option value="CNBC"  {% if p_portal == 'CNBC' %}selected {% endif %}>CNBC</option>
+            </select>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+            <select class="form-control" name="class_select" id="class_select">
+              <option value="all"   {% if p_class == 'all' %} selected {% endif %}>All Class</option>
+              <option value="1"     {% if p_class == '1' %} selected {% endif %}>Positif</option>
+              <option value="2"     {% if p_class == '2' %} selected {% endif %}>Negatif</option>
+              <option value="0"     {% if p_class == '0' %}selected {% endif %}>Netral</option>
             </select>
         </div>
       </div>
@@ -34,6 +46,11 @@
   </div>
  
 </div>
+<div class="alert alert-info alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+  <strong>Displays the features contained in the sentence <span class="text-danger">'{{sentence}}'<span>  </strong>
+</div>
+
 
 <div class="card">
   <div class="card-body">
@@ -51,50 +68,49 @@
     }
     myVar = myFunc({{data|tojson}})
     baseUrl   = '{{baseUrl}}'
-
+    
     $('.btn-search').on('click', function(){
       portal = $('#portal_select').val()
+      class_select = $('#class_select').val()
       
-      window.location.href = baseUrl+'/detailclass?class='+'{{flagging}}'+'&portal='+portal;
+      window.location.href = baseUrl+'/feature?sentence='+'{{sentence}}'+'&portal='+portal+'&class='+class_select;
 
     })
 
-    
 
     var data = myVar
     var table = $('#example').DataTable({
       columns: [
-          {   name: 'url',
-              title: 'No',
+          {   
+            name: 'url',
+            title: 'No',
           },
           {
-              name: 'portal',
-              title: 'Portal',
+            name: 'portal',
+            title: 'Portal',
           },
           {
-              name: 'judul',
-              title: 'Title',
+            name: 'judul',
+            title: 'Title',
           },
-          {   name:'publis_date',
-              title: 'Publish Date',
+          {   
+            name:'kalimat',
+            title: 'Sentence After Preporcessing',
           },
-          {   name:'kalimat',
-              title: 'Sentence',
+          {   
+            name:'flagging',
+            title: 'Class',
           },
-          {   name:'flagging',
-              title: 'Class',
-          },
-          {   name:'action',
-              title: 'Action',
-          },
+          {   
+            name:'action',
+            title: 'Action',
+          }
       ],
       data: data,
       rowsGroup: [
-        'url:name',
         'portal:name',
         'judul:name',
-        'publis_date:name',
-        'action:name',
+        'action:name'
       ],
       lengthMenu  : [[100, 200, 300, -1], [100, 200, 300, "All"]],
       pageLength: '100',
@@ -115,9 +131,19 @@
             visible: true
         },
         {
-            width: '25px',
-            targets: 3,
-            visible: true
+          "mRender": function ( data, type, row ) {
+
+              $rowdata = data.split(' ').map(function(cell, i){
+                if(cell == '{{sentence}}'){
+                  cell = '<span class="text-danger">'+cell+'</span>'
+                }
+                return cell
+              }).join(' ');
+
+              return $rowdata;
+          },
+          targets: 3,
+          visible: true
         },
         {
           "mRender": function ( data, type, row ) {
@@ -134,7 +160,7 @@
 
               return $rowdata;
           },
-          targets: 5,
+          targets: 4,
           visible: true
         },
         {
@@ -144,9 +170,8 @@
               return $rowdata;
           },
           "className" : "a_middle",
-          "aTargets": [ 6 ]
+          "aTargets": [ 5 ]
         },
-
       ]
     });
   
@@ -154,7 +179,7 @@
   })
 
   function detailberita(berita_id){
-    window.open(baseUrl+'/'+'detailBerita'+'?berita='+berita_id)
+    location.href = baseUrl+'/'+'detailBerita'+'?berita='+berita_id
   }
 </script>
 {% endblock %}

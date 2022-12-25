@@ -1,6 +1,6 @@
 
 
-from config.dbconfig import CONN
+# from config.dbconfig import CONN
 from model.Datalatih import Datalatih
 from controller.DataBeritaController import DataBeritaController
 from controller.PraprosesController import PraprosesController
