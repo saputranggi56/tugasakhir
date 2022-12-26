@@ -7,6 +7,25 @@
   .a_middle{
     vertical-align:middle!important;
   }
+  thead{
+    background-color: #192868;
+    color:#ffff
+  }
+  .btn-color{
+    background-color: #192868;
+    color:#fff
+  }
+  #example_filter{
+    float: left;
+  }
+  #example_length{
+    float:right
+  }
+  div.dt-buttons {
+    position: relative;
+    float: right;
+    margin-right:40px
+  }
 </style>
 <h4>
     DETAIL DATA CLASS <a class="m_title">{{flagging}}</a>
@@ -22,13 +41,12 @@
               <option value="ALL"   {% if portal == 'ALL' %} selected {% endif %}>All News Portal</option>
               <option value="TEMPO" {% if portal == 'TEMPO' %} selected {% endif %}>Tempo</option>
               <option value="DETIK" {% if portal == 'DETIK' %} selected {% endif %}>Detik</option>
-              <option value="PR"    {% if portal == 'PR' %}selected {% endif %}>PR</option>
               <option value="CNBC"  {% if portal == 'CNBC' %}selected {% endif %}>CNBC</option>
             </select>
         </div>
       </div>
       <div class="col-md-2">
-        <button class="btn btn-info btn-block btn-search" >Search</button>
+        <button class="btn btn-color btn-block btn-search" >Search</button>
       </div>
     </div>
   </div>
@@ -38,7 +56,9 @@
 <div class="card">
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-bordered" id="example"></table>
+      <table class="table table-bordered" id="example">
+        
+      </table>
     </div>
   </div>
 </div>
@@ -55,7 +75,7 @@
     $('.btn-search').on('click', function(){
       portal = $('#portal_select').val()
       
-      window.location.href = baseUrl+'/detailclass?class='+'{{flagging}}'+'&portal='+portal;
+      location.href = baseUrl+'/detailclass?class='+'{{flagging}}'+'&portal='+portal;
 
     })
 
@@ -65,24 +85,34 @@
     var table = $('#example').DataTable({
       columns: [
           {   name: 'url',
-              title: 'No',
+              title: 'No'
           },
           {
               name: 'portal',
               title: 'Portal',
+              "className" : "a_middle text-center",
+
           },
           {
               name: 'judul',
               title: 'Title',
+              "className" : "a_middle text-center",
+
           },
           {   name:'publis_date',
               title: 'Publish Date',
+              "className" : "a_middle text-center",
+
           },
           {   name:'kalimat',
               title: 'Sentence',
+              "className" : "a_middle text-center",
+
           },
           {   name:'flagging',
               title: 'Class',
+              "className" : "a_middle text-center",
+
           },
           {   name:'action',
               title: 'Action',
@@ -98,6 +128,22 @@
       ],
       lengthMenu  : [[100, 200, 300, -1], [100, 200, 300, "All"]],
       pageLength: '100',
+      //dom: 'Bfrtip',
+      //"dom": '<"wrapper"flipt>'
+      dom: '<"top"flB>rt<"bottom"ip><"clear">',
+
+        buttons: [
+        {
+          extend: 'excel',
+          text: 'Export to excel',
+          className: 'btn btn-color btn-xs'
+        },
+        {
+          extend: 'csv',
+          text: 'Export to CSV',
+          className: 'btn btn-color btn-xs'
+        }
+        ],
       columnDefs :[
         {
             width: '20px',
@@ -139,7 +185,7 @@
         },
         {
           "mRender": function ( data, type, row ) {
-              $rowdata = '<button class="btn btn-info" onClick="detailberita(\''+data+'\')">Detail News</button>'
+              $rowdata = '<button class="btn btn-color" onClick="detailberita(\''+data+'\')">Detail News</button>'
 
               return $rowdata;
           },
@@ -154,7 +200,7 @@
   })
 
   function detailberita(berita_id){
-    window.open(baseUrl+'/'+'detailBerita'+'?berita='+berita_id)
+    location.href = (baseUrl+'/'+'detailBerita'+'?berita='+berita_id)
   }
 </script>
 {% endblock %}

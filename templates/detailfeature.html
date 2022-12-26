@@ -4,9 +4,27 @@
   a.m_title {
     text-transform: uppercase;
   }
-
   .a_middle{
     vertical-align:middle!important;
+  }
+  thead{
+    background-color: #192868;
+    color:#ffff
+  }
+  .btn-color{
+    background-color: #192868;
+    color:#fff
+  }
+  #example_filter{
+    float: left;
+  }
+  #example_length{
+    float:right
+  }
+  div.dt-buttons {
+    position: relative;
+    float: right;
+    margin-right:40px
   }
 
 </style>
@@ -24,7 +42,6 @@
               <option value="all"   {% if p_portal == 'all' %} selected {% endif %}>All News Portal </option>
               <option value="TEMPO" {% if p_portal == 'TEMPO' %} selected {% endif %}>Tempo</option>
               <option value="DETIK" {% if p_portal == 'DETIK' %} selected {% endif %}>Detik</option>
-              <option value="PR"    {% if p_portal == 'PR' %}selected {% endif %}>PR</option>
               <option value="CNBC"  {% if p_portal == 'CNBC' %}selected {% endif %}>CNBC</option>
             </select>
         </div>
@@ -40,7 +57,7 @@
         </div>
       </div>
       <div class="col-md-2">
-        <button class="btn btn-info btn-block btn-search" >Search</button>
+        <button class="btn btn-info btn-color btn-search" >Search</button>
       </div>
     </div>
   </div>
@@ -73,7 +90,7 @@
       portal = $('#portal_select').val()
       class_select = $('#class_select').val()
       
-      window.location.href = baseUrl+'/feature?sentence='+'{{sentence}}'+'&portal='+portal+'&class='+class_select;
+      location.href = baseUrl+'/feature?sentence='+'{{sentence}}'+'&portal='+portal+'&class='+class_select;
 
     })
 
@@ -114,6 +131,19 @@
       ],
       lengthMenu  : [[100, 200, 300, -1], [100, 200, 300, "All"]],
       pageLength: '100',
+      dom: '<"top"flB>rt<"bottom"ip><"clear">',
+      buttons: [
+        {
+          extend: 'excel',
+          text: 'Export to excel',
+          className: 'btn btn-color btn-xs'
+        },
+        {
+          extend: 'csv',
+          text: 'Export to CSV',
+          className: 'btn btn-color btn-xs'
+        }
+      ],
       columnDefs :[
         {
             width: '20px',
@@ -165,7 +195,7 @@
         },
         {
           "mRender": function ( data, type, row ) {
-              $rowdata = '<button class="btn btn-info" onClick="detailberita(\''+data+'\')">Detail News</button>'
+              $rowdata = '<button class="btn btn-color" onClick="detailberita(\''+data+'\')">Detail News</button>'
 
               return $rowdata;
           },

@@ -67,13 +67,13 @@ class VisualisasiController():
 
     def loadDataByFeature(self):
         model       = Datalatih(VisualisasiController.G_CONN)
-        loadData    = model.getData()
+        loadData    = model.getDataUji()
 
         counts = defaultdict(int)
 
         for x in loadData :
             dataPraproses = x[9]
-            flagging      = x[7]
+            flagging      = x[8]
 
             helper = {}
             word_list = dataPraproses.split()
@@ -137,25 +137,25 @@ class VisualisasiController():
         dataBerita = model.getDataBeritaById(berita_id)
 
         berita_data = {}
-        berita_data['judul'] = dataBerita[0][3]
-        berita_data['portal'] = dataBerita[0][1]
+        berita_data['judul'] = dataBerita[0][4]
+        berita_data['portal'] = dataBerita[0][2]
 
         berita_data['total_kalimat'] = 0
         berita_data['total_kalimat_positif']   = 0
         berita_data['total_kalimat_negatif']   = 0
         berita_data['total_kalimat_netral']    = 0
-
+        
         text_berita = '<p class="text-justify h4 p-3" style="line-height: 1.5">'
 
         for x in dataBerita:
-            if str(x[7]) == '1' :
-                tmp_text =  '<span class="bg-primary text-white">'+x[6].strip()+'</span>'
+            if str(x[8]) == '1' :
+                tmp_text =  '<span class="bg-primary text-white">'+x[7].strip()+'</span>'
                 berita_data['total_kalimat_positif'] += 1
-            if str(x[7]) == '2' :
-                tmp_text =  '<span class="bg-danger text-white">'+x[6].strip()+'</span>'
+            if str(x[8]) == '2' :
+                tmp_text =  '<span class="bg-danger text-white">'+x[7].strip()+'</span>'
                 berita_data['total_kalimat_negatif'] += 1
-            if str(x[7]) == '0' :
-                tmp_text =  '<span class="bg-info text-white">'+x[6].strip()+'</span>'
+            if str(x[8]) == '0' :
+                tmp_text =  '<span class="bg-info text-white">'+x[7].strip()+'</span>'
                 berita_data['total_kalimat_netral'] += 1
 
             berita_data['total_kalimat'] += 1

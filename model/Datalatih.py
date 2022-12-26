@@ -18,9 +18,17 @@ class Datalatih():
 
         return data
 
+    def getDataUji(self):
+        cur = self.storage.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        s = "SELECT * FROM data_uji"
+        cur.execute(s)
+        data = cur.fetchall()
+
+        return data
+
     def getDataByLabel(self, flagging=''):
         cur = self.storage.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        s = "SELECT after_praproses FROM flagging_kalimat WHERE flagging = '"+flagging+"'"
+        s = "SELECT after_praproses FROM data_uji WHERE flagging = '"+flagging+"'"
         cur.execute(s)
         data = cur.fetchall()
 
@@ -44,7 +52,7 @@ class Datalatih():
                         COUNT(*) FILTER (WHERE flagging = '1') as total_positif, 
                         COUNT(*) FILTER (WHERE flagging = '2') as total_negatif
                     FROM 
-                        flagging_kalimat 
+                        data_uji 
                     WHERE 
                         portal = '"""+portal+"""'
 
@@ -65,7 +73,7 @@ class Datalatih():
                         COUNT(*) FILTER (WHERE flagging = '1') as total_positif, 
                         COUNT(*) FILTER (WHERE flagging = '2') as total_negatif
                     FROM 
-                        flagging_kalimat 
+                        data_uji 
                     ) x;
                 """
         cur.execute(s)
@@ -74,7 +82,7 @@ class Datalatih():
         return data
     def getDataByLabelAndWord(self, flagging='', word=''):
         cur = self.storage.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        s = "SELECT after_praproses FROM flagging_kalimat WHERE flagging = '"+flagging+"' AND after_praproses ilike '%"+word+"%'"
+        s = "SELECT after_praproses FROM data_uji WHERE flagging = '"+flagging+"' AND after_praproses ilike '%"+word+"%'"
         cur.execute(s)
         data = cur.fetchall()
 
@@ -91,7 +99,7 @@ class Datalatih():
                 flagging, 
                 berita_id  
             FROM 
-                flagging_kalimat 
+                data_uji 
             WHERE 
                 flagging = '"""+flagging+"""'"""
 
@@ -112,7 +120,7 @@ class Datalatih():
 
     def getDataBeritaById(self, berita_id = ''):
         cur = self.storage.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        s = "SELECT * FROM flagging_kalimat WHERE berita_id = '"+berita_id+"'"
+        s = "SELECT * FROM data_uji WHERE berita_id = '"+berita_id+"'"
         cur.execute(s)
         data = cur.fetchall()
 
@@ -129,7 +137,7 @@ class Datalatih():
                     flagging,
                     berita_id
                 FROM 
-                    flagging_kalimat 
+                    data_uji 
                 WHERE 
                     after_praproses like '%"""+sentence+"%'"""
         
