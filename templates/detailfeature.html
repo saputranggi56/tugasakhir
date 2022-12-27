@@ -29,7 +29,7 @@
 
 </style>
 <h4>
-    DETAIL DATA FEATURE "<a class="m_title">{{sentence}}</a>"
+    <strong>DETAIL DATA FITUR "<a class="m_title">{{sentence}}</a>"</strong>
 </h4>
 <div class="card mb-2">
 
@@ -39,7 +39,7 @@
       <div class="col-md-4">
         <div class="form-group">
             <select class="form-control" name="portal_select" id="portal_select">
-              <option value="all"   {% if p_portal == 'all' %} selected {% endif %}>All News Portal </option>
+              <option value="all"   {% if p_portal == 'all' %} selected {% endif %}>Semua Portal Berita </option>
               <option value="TEMPO" {% if p_portal == 'TEMPO' %} selected {% endif %}>Tempo</option>
               <option value="DETIK" {% if p_portal == 'DETIK' %} selected {% endif %}>Detik</option>
               <option value="CNBC"  {% if p_portal == 'CNBC' %}selected {% endif %}>CNBC</option>
@@ -49,7 +49,7 @@
       <div class="col-md-4">
         <div class="form-group">
             <select class="form-control" name="class_select" id="class_select">
-              <option value="all"   {% if p_class == 'all' %} selected {% endif %}>All Class</option>
+              <option value="all"   {% if p_class == 'all' %} selected {% endif %}>Semua Kelas</option>
               <option value="1"     {% if p_class == '1' %} selected {% endif %}>Positif</option>
               <option value="2"     {% if p_class == '2' %} selected {% endif %}>Negatif</option>
               <option value="0"     {% if p_class == '0' %}selected {% endif %}>Netral</option>
@@ -57,7 +57,7 @@
         </div>
       </div>
       <div class="col-md-2">
-        <button class="btn btn-info btn-color btn-search" >Search</button>
+        <button class="btn btn-info btn-color btn-search" >Cari</button>
       </div>
     </div>
   </div>
@@ -65,7 +65,7 @@
 </div>
 <div class="alert alert-info alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-  <strong>Displays the features contained in the sentence <span class="text-danger">'{{sentence}}'<span>  </strong>
+  <strong>Menampilkan kalimat berita yang mengandung fitur <span class="text-danger">'{{sentence}}'<span>  </strong>
 </div>
 
 
@@ -108,19 +108,19 @@
           },
           {
             name: 'judul',
-            title: 'Title',
+            title: 'Judul',
           },
           {   
             name:'kalimat',
-            title: 'Sentence After Preporcessing',
+            title: 'Kalimat Setelah Praproses',
           },
           {   
             name:'flagging',
-            title: 'Class',
+            title: 'Kelas',
           },
           {   
             name:'action',
-            title: 'Action',
+            title: 'Aksi',
           }
       ],
       data: data,
@@ -135,12 +135,12 @@
       buttons: [
         {
           extend: 'excel',
-          text: 'Export to excel',
+          text: 'Export excel',
           className: 'btn btn-color btn-xs'
         },
         {
           extend: 'csv',
-          text: 'Export to CSV',
+          text: 'Export CSV',
           className: 'btn btn-color btn-xs'
         }
       ],
@@ -181,10 +181,10 @@
               if(data == '0'){
                 $rowdata = '<span class="badge badge-info">Netral</span>'
               }else if(data == '1'){
-                $rowdata = '<span class="badge badge-primary">Positive</span>'
+                $rowdata = '<span class="badge badge-primary">Positif</span>'
 
               }else if(data == '2'){
-                $rowdata = '<span class="badge badge-danger">Negative</span>'
+                $rowdata = '<span class="badge badge-danger">Negatif</span>'
 
               }
 
@@ -195,7 +195,7 @@
         },
         {
           "mRender": function ( data, type, row ) {
-              $rowdata = '<button class="btn btn-color" onClick="detailberita(\''+data+'\')">Detail News</button>'
+              $rowdata = '<button class="btn btn-color" onClick="detailberita(\''+data+'\')">Detail Berita</button>'
 
               return $rowdata;
           },

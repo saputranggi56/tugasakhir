@@ -42,40 +42,67 @@
     <div class="col-md-5 p-2">
         <div class="card">
             <div class="card-header text-center bg-header">
-              <div class="font-weight-bold text-center h4 mb-0">Data By Class</div>
+              <div class="font-weight-bold text-center h4 mb-0">Data Berdasarkan Kelas</div>
               <div class="text-muted">News Sentence</div>
             </div>
             <div class="card-body">
-                <div class="alert alert-dark alert-dismissable">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                  <strong>Click <span class="font-weight-bold text-danger">Bar</span> to see the details of the data !</strong>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="alert alert-dark alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                    <div class="text-card">
+                      Persentase kalimat pada berita berdasarkan kelas dari setiap kalimat dan data ditampilkan dalam bentuk Diagram Pie.
+                    </div>
+                    <div class="text-card">
+                      Untuk melihat detail klik kelas pada diagram
+                    </div>
+                  </div>
                 </div>
-                <div id="myChartPie"  style="height:350px;"></div>
+              </div>
+              <div id="myChartPie"  style="height:350px;"></div>
             </div>
         </div>
     </div>
     <div class="col-md-7 p-2">
         <div class="card">
           <div class="card-header text-center bg-header">
-            <div class="font-weight-bold text-center h4 mb-0">Data By News Portal</div>
+            <div class="font-weight-bold text-center h4 mb-0">Data Berdasarkan Kelas dan Portal</div>
             <div class="text-muted">News Sentence</div>
           </div>
           <div class="card-body">
-              <div class="alert alert-dark alert-dismissable">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                <strong>Click <span class="font-weight-bold text-danger">Bar</span> to see the details of the data!</strong>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="alert alert-dark alert-dismissable">
+                  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                  <div class="text-card">
+                    Persentase kalimat pada berita berdasarkan kelas dan portal berita dan data ditampilkan dalam bentuk Diagram Bar.
+                  </div>
+                  <div class="text-card">
+                    Untuk melihat detail klik kelas pada diagram
+                  </div>
+                </div>
               </div>
-                <div id="myChartBar" style="height:350px;"></div>
             </div>
+            <div id="myChartBar" style="height:350px;"></div>
+          </div>
         </div>
     </div>
 </div>
 <div class="row mt-2">
   <div class="col-md-12">
     <div class="card">
-      <div class="card-header text-center bg-header">
-        <div class="font-weight-bold text-center h4 mb-0">Data By Feature</div>
-        <div class="text-muted">News Sentence</div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-dark alert-dismissable">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+            <div class="text-card">
+              Persentase kalimat pada berita berdasarkan kelas dan portal berita dan data ditampilkan dalam bentuk Diagram Bar.
+            </div>
+            <div class="text-card">
+              Untuk melihat detail klik kelas pada diagram
+            </div>
+          </div>
+        </div>
       </div>
       <div class="card-body">
           <div class="alert alert-dark alert-dismissable">
@@ -98,23 +125,22 @@
                   <div class="card">
                     <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Positif.png')}}" width="100%"alt="">
                     <div class="card-body">
-                      <h5 class="card-title font-weight-bold">Positive Class</h5>
-                      <p class="card-text">Positive class features based on the frequency of occurrence of the data</p>
-                    </div>
+                      <h5 class="card-title font-weight-bold">Kelas Positif</h5>
+                      <p class="card-text">World Cloud yang ditampilkan berdasarkan frekuensi kemunculan fitur pada kelas positif</div>
                   </div>
                   <div class="card">
                     <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Negatif.png')}}" width="100%"alt="">
                     <div class="card-body">
-                      <h5 class="card-title font-weight-bold">Negative Class</h5>
-                      <p class="card-text">Nositive class features based on the frequency of occurrence of the data</p>
+                      <h5 class="card-title font-weight-bold">Kelas Negatif</h5>
+                      <p class="card-text">World Cloud yang ditampilkan berdasarkan frekuensi kemunculan fitur pada kelas negatif</div>
                     </div>
                   </div>
                   <div class="card">
                     <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Netral.png')}}" width="100%"alt="">
                     <div class="card-body">
-                      <h5 class="card-title font-weight-bold">Netral Class</h5>
-                      <p class="card-text">Nositive class features based on the frequency of occurrence of the data</p>
-                    </div>
+                      <h5 class="card-title font-weight-bold">Kelas Netral</h5>
+                      <p class="card-text">World Cloud yang ditampilkan berdasarkan frekuensi kemunculan fitur pada kelas netral</div>
+                      </div>
                   </div>
                 </div>
             </div>
