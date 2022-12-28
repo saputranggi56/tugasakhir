@@ -3,7 +3,11 @@
 
 <style>
   .bg-header{
-    background-color: #000;
+    background-color: #313035;
+    color: #ffff;
+  }
+  .bg-header-2{
+    background-color: #686767;
     color: #ffff;
   }
 </style>
@@ -39,120 +43,137 @@
 </div>
 
 <div class="row">
-    <div class="col-md-5 p-2">
-        <div class="card">
-            <div class="card-header text-center bg-header">
-              <div class="font-weight-bold text-center h4 mb-0">Data Berdasarkan Kelas</div>
-              <div class="text-muted">News Sentence</div>
-            </div>
+  <div class="col-md-12 p-2">
+    <div class="card mb-2">
+      <div class="card-body">
+        <div class="mb-2 font-weight-bold h4">Total Berita</div>
+        <div class="row card-deck">
+        
+          <div class="card bg-header-2 col-md-4">
             <div class="card-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="alert alert-dark alert-dismissable">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                    <div class="text-card">
-                      Persentase kalimat pada berita berdasarkan kelas dari setiap kalimat dan data ditampilkan dalam bentuk Diagram Pie.
-                    </div>
-                    <div class="text-card">
-                      Untuk melihat detail klik kelas pada diagram
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="myChartPie"  style="height:350px;"></div>
+              <div class="">Total Berita CNBC</div>
+              <div class="total">{{total[0][1]}}</div>              
             </div>
-        </div>
-    </div>
-    <div class="col-md-7 p-2">
-        <div class="card">
-          <div class="card-header text-center bg-header">
-            <div class="font-weight-bold text-center h4 mb-0">Data Berdasarkan Kelas dan Portal</div>
-            <div class="text-muted">News Sentence</div>
           </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="alert alert-dark alert-dismissable">
-                  <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                  <div class="text-card">
-                    Persentase kalimat pada berita berdasarkan kelas dan portal berita dan data ditampilkan dalam bentuk Diagram Bar.
-                  </div>
-                  <div class="text-card">
-                    Untuk melihat detail klik kelas pada diagram
-                  </div>
-                </div>
-              </div>
+          <div class="card bg-header-2 col-md-4">
+            <div class="card-body">
+              <div class="">Total Berita Detik</div>
+              <div class="total">{{total[1][1]}}</div> 
             </div>
-            <div id="myChartBar" style="height:350px;"></div>
+          </div>
+          <div class="card bg-header-2 col-md-4">
+            <div class="card-body">
+              <div class="">Total Berita Tempo</div>
+              <div class="total">{{total[2][1]}}</div> 
+            </div>
           </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+
+<div class="row card-deck mb-2">
+
+  <div class="card col-md-4">
+    <div class="card-body">
+      
+      <div class="font-weight-bold mb-4 text-center h4">
+        Diagram Berdasarkan Kategori Sentimen
+      </div> 
+       
+      <div id="myChartPie"  style="height:350px;"></div>
+
+      <div class="alert alert-dark alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <div class="text-card">
+          Pada diagram di atas menampilkan data kalimat berita mana saja yang masuk ke dalam kategori sentimen dalam bentuk persentase. 
+          Kategori sentimen dibagi menjadi tiga yaitu sentimen <strong>Positif, Negatif, dan Netral.</strong> 
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card col-md-8">
+    <div class="card-body">
+      <div class="font-weight-bold mb-2 h4 text-center">Diagram Berdasarkan Portal Berita</div>
+      
+      <div id="myChartBar" style="height:350px;"></div>
+
+      <div class="alert alert-dark alert-dismissable mt-5">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+        <div class="text-card">
+          Pada diagram di atas menampilkan data berdasarkan portal berita <strong>Tempo, Detik, CNN</strong>. Setiap portal berita akan diklasifikasikan ke dalam kategori sentimen <strong>Positif, Negatif, dan Netral</strong> dari setiap kalimatnya.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <div class="row mt-2">
   <div class="col-md-12">
     <div class="card">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="alert alert-dark alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <div class="text-card">
-              Persentase kalimat pada berita berdasarkan kelas dan portal berita dan data ditampilkan dalam bentuk Diagram Bar.
-            </div>
-            <div class="text-card">
-              Untuk melihat detail klik kelas pada diagram
-            </div>
+      <div class="card-body">
+        <div class="font-weight-bold mb-2 h4 text-center">Diagram Berdasarkan Fitur</div>
+            
+        <div id="myChartBar2" style="height:350px;"></div>
+
+        <div class="alert alert-dark alert-dismissable mt-5">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+          <div class="text-card">
+            Pada diagram di atas menampilkan data berdasarkan <strong>10 Fitur</strong> terbanyak dihitung dari frekuensi kemunculan fitur. Fitur merupakan kata yang didapatkan dari hasil praproses. 
           </div>
         </div>
+
       </div>
-      <div class="card-body">
-          <div class="alert alert-dark alert-dismissable">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-            <strong>Click <span class="font-weight-bold text-danger">Bar</span> to see the details of the data !</strong>
-          </div>
-          <div id="myChartBar2" style="height:350px;"></div>
-      </div>
-  </div>
+    </div>
   </div>
 </div>
+
 <div class="row mt-2">
-    <div class="col-md-12">
-        <div class="card">
-          <div class="card-header text-center bg-header">
-            <div class="font-weight-bold text-center h4 mb-0">World Cloud</div>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="font-weight-bold text-center h4 mb-2">Word Cloud</div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card">
+              <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Positif.png')}}" width="100%"alt="">
+              <div class="card-body">
+                <h5 class="card-title font-weight-bold">Kelas Positif</h5>
+                <p class="card-text">Word Cloud yang ditampilkan berdasarkan frekuensi kemunculan fitur pada kelas positif</p>
+              </div>
+            </div>
           </div>
-            <div class="card-body">
-                <div class="card-deck">
-                  <div class="card">
-                    <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Positif.png')}}" width="100%"alt="">
-                    <div class="card-body">
-                      <h5 class="card-title font-weight-bold">Kelas Positif</h5>
-                      <p class="card-text">World Cloud yang ditampilkan berdasarkan frekuensi kemunculan fitur pada kelas positif</div>
-                  </div>
-                  <div class="card">
-                    <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Negatif.png')}}" width="100%"alt="">
-                    <div class="card-body">
-                      <h5 class="card-title font-weight-bold">Kelas Negatif</h5>
-                      <p class="card-text">World Cloud yang ditampilkan berdasarkan frekuensi kemunculan fitur pada kelas negatif</div>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Netral.png')}}" width="100%"alt="">
-                    <div class="card-body">
-                      <h5 class="card-title font-weight-bold">Kelas Netral</h5>
-                      <p class="card-text">World Cloud yang ditampilkan berdasarkan frekuensi kemunculan fitur pada kelas netral</div>
-                      </div>
-                  </div>
+          <div class="col-md-4">
+            <div class="card">
+              <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Negatif.png')}}" width="100%"alt="">
+              <div class="card-body">
+                <h5 class="card-title font-weight-bold">Kelas Negatif</h5>
+                <p class="card-text">Word Cloud yang ditampilkan berdasarkan frekuensi kemunculan fitur pada kelas negatif</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <img class="card-img-top img-thumbnail rounded" src="{{url_for('static', filename='Netral.png')}}" width="100%"alt="">
+              <div class="card-body">
+                <h5 class="card-title font-weight-bold">Kelas Netral</h5>
+                <p class="card-text">Word Cloud yang ditampilkan berdasarkan frekuensi kemunculan fitur pada kelas netral</p>
                 </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.1/echarts.min.js"></script>
-<!-- <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.js" integrity="sha512-64PuQoA1/rGxeXwhWJRNZl25TjBPhQWeQ6x8h6UC54gQT7xFvTio//dLKg2MiAc3/4Tf+uoLKPzl+QuX87fssA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
-<!-- <script type="text" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.min.js" integrity="sha512-MC1YbhseV2uYKljGJb7icPOjzF2k6mihfApPyPhEAo3NsLUW0bpgtL4xYWK1B+1OuSrUkfOTfhxrRKCz/Jp3rQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
 <script>
     function myFunc(vars) {
         return vars
@@ -173,7 +194,7 @@
           trigger: 'item'
         },
         legend: {
-          orient: 'vertical',
+          orient: 'horizontal',
           left: 'left'
         },
         series: [
@@ -185,18 +206,18 @@
             data: [
                 { 
                     value   : myVar.all[0][4], 
-                    name    : 'Positive', 
+                    name    : 'Positif', 
                     label   : {
                                 show: true,
-                                formatter: 'Positive {c} %',
+                                formatter: 'Positif {c} %',
                               }
                 },
                 { 
                     value   :  myVar.all[0][5], 
-                    name    : 'Negative', 
+                    name    : 'Negatif', 
                     label   : {
                                 show: true,
-                                formatter: 'Negative {c} %',
+                                formatter: 'Negatif {c} %',
                               }
                 },
                 { 
@@ -424,4 +445,5 @@
     });
 
 </script>
+
 {% endblock %}

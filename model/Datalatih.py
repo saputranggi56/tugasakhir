@@ -34,6 +34,14 @@ class Datalatih():
 
         return data
 
+    def getTotalData(self):
+        cur = self.storage.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        s = """SELECT portal, count(*) FROM berita_all WHERE portal != 'PIKIRAN RAKYAT' GROUP BY portal ORDER BY portal"""
+        cur.execute(s)
+        data = cur.fetchall()
+
+        return data
+
     def getDataPercentage(self, portal=''):
         cur = self.storage.cursor(cursor_factory=psycopg2.extras.DictCursor)
 

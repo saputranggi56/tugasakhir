@@ -150,6 +150,8 @@ def index():
     dataDetik = visualisasi.loadDataPercentage('DETIK')
     dataTempo = visualisasi.loadDataPercentage('TEMPO')
     
+    total_data = visualisasi.loadTotalData()
+
     dataReturn = {}
     dataReturn['all'] = dataAll
     dataReturn['cnbc'] = dataCnbc
@@ -159,7 +161,8 @@ def index():
 
     featureData = visualisasi.loadDataByFeature()
 
-    return render_template('visualization.html', data=dataReturn, fiturdata=featureData, baseUrl=baseUrl)
+    return render_template('visualization.html', data=dataReturn, fiturdata=featureData, baseUrl=baseUrl, total=total_data)
+    # return total_data
     # return render_template("index.html")
 
 @app.route("/redirect")

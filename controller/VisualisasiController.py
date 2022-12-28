@@ -178,6 +178,11 @@ class VisualisasiController():
 
         return loadData
 
+    def loadTotalData(self):
+        model             = Datalatih(VisualisasiController.G_CONN)
+        loadData          = model.getTotalData()
+        return loadData
+
     def encrypt(self, sample_string=""):
         sample_string_bytes = sample_string.encode("ascii")
         base64_bytes = base64.b64encode(sample_string_bytes)
