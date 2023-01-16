@@ -11,8 +11,8 @@ import re # Library regex
 import pandas as pd
 import numpy as np
 from nltk import FreqDist
-from cryptography.fernet import Fernet
-from Crypto.Cipher import DES
+# from cryptography.fernet import Fernet
+# from Crypto.Cipher import DES
 import base64
 
 class VisualisasiController():

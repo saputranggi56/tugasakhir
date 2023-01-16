@@ -73,9 +73,9 @@ def detailclass():
     portal     = request.args.get('portal')
 
     flagging=flagging_b
-    if flagging == 'negative':
+    if flagging == 'negatif':
         flagging = '2'
-    if flagging == 'positive':
+    if flagging == 'positif':
         flagging = '1'
     if flagging == 'netral':
         flagging = '0'
@@ -188,7 +188,6 @@ def feature():
 def handle_klasifikasi():
     afterPraproses = 'ada'
     if request.method == 'POST':
-        visualisasi = VisualisasiController(connection=conn)
 
         kalimat_berita = request.form['kalimat_berita']
         # print(kalimat_berita)
@@ -197,7 +196,10 @@ def handle_klasifikasi():
 
         # controllerPraProses = PraprosesController()
         # array_result = []
+
         mycon    = psycopg2.connect(**connection_kwargs)
+        visualisasi = VisualisasiController(connection=mycon)
+
         model = ModelingController(connection=mycon)
 
         array_result = []
