@@ -160,9 +160,8 @@ class VisualisasiController():
 
             berita_data['total_kalimat'] += 1
             
-            
             text_berita = text_berita+' '+tmp_text
-
+            
         text_berita  = text_berita+'</p>'
         berita_data['text_berita'] = text_berita
 

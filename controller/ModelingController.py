@@ -17,6 +17,7 @@ from sklearn.model_selection import train_test_split
 from wordcloud import WordCloud, ImageColorGenerator
 from PIL import Image
 import matplotlib.pyplot as plt
+import _pickle as cPickle
 
 class ModelingController():
     G_CONN = ''
@@ -52,14 +53,16 @@ class ModelingController():
     def classfication(self, dataUji=""):
         classResult = ['Netral', 'Positif', 'Negatif']
 
-        model = self.modelingAction()
-
-        #PraProses
+        # model = self.modelingAction()
         praproses = PraprosesController(dataPraproses=dataUji)
         afterPraproses = praproses.allPraproses()
         
-        pred = model.predict([afterPraproses])
+        with open('model_nb.pkl', 'rb') as fid:
+            model_loaded = cPickle.load(fid)
 
+        # pred = model.predict([afterPraproses])
+        pred = model_loaded.predict([afterPraproses])
+        
         dataReturn = {}
         dataReturn['after_praproses']   = afterPraproses
         dataReturn['flagging']          = classResult[int(pred[0])]

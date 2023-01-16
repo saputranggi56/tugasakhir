@@ -65,9 +65,9 @@
                 
                 <div id="Paris" class="tabcontent">
                     <h5>Input By URL</h5>
-                    <form action="">
+                    <form action="{{ url_for('handle_klasifikasi_url') }}"  method="post">
                         <div class="form-group">
-                            <input class="form-control" type="url" name="url_beria" id="url_berita" placeholder="Masukan URL Berita">
+                            <input class="form-control" type="url" name="url_berita" id="url_berita" placeholder="Masukan URL Berita">
                         </div>
 
                         <div class="col-md-12 text-center mt-3">

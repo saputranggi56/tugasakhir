@@ -19,51 +19,49 @@
                     <div class="col-md-6">
                         <div class="card" style="padding: 10px;">
                             <div id="myChartPie1"  style="height:350px;"></div>
-                            
-                            <!--<div class="table-responsive">
-
-                                <table class="table ">
-                                    <tr class="bg-primary text-white">
-                                        <td >Total Kalimat</td>
-                                        <td>:</td>
-                                        <td>{{ dataHeader.total_kalimat}}</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>Total Kalimat Positif</td>
-                                        <td>:</td>
-                                        <td>{{ dataHeader.total_positif}}</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td>Total Kalimat Negatif</td>
-                                        <td>:</td>
-                                        <td>{{ dataHeader.total_negatif}}</td>
-                                    </tr>
-                                    <tr class="bg-info text-white">
-                                        <td>Total Kalimat Netral</td>
-                                        <td>:</td>
-                                        <td>{{ dataHeader.total_netral}}</td>
-                                    </tr>
-                                </table> 
-
-                            </div>-->
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card-header">
-                            <h5 class="text-center font-weight-bold">World Cloud</h5>
-                        </div>
-                        <div class="card">
-                            <!-- <div class="d-flex align-items-center"> -->
+                    <!-- <div class="col-md-3">
 
+                        <div class="card">
                                 <img class="img-thumbnail rounded mx-auto d-block m-2" src="{{url_for('static', filename='Classification.png')}}" width="70%"alt="">
-                            <!-- </div> -->
                         </div>
+                    </div> -->
+
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td></td>
+                                    <td class="font-weight-bold text-center" colspan="2">Total Kelas</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-primary"> Total Kalimat Positif</span> </td>
+                                    <td class="text-center">{{ dataHeader.total_positif}}</td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="badge badge-danger">Total Kalimat Negatif</span></td>
+                                    <td class="text-center">{{ dataHeader.total_negatif}}</td>
+                                </tr>
+                                <tr>
+                                    <td> <span class="badge badge-info">Total Kalimat Netral</span></td>
+                                    <td class="text-center">{{ dataHeader.total_netral}}</td>
+                                </tr>
+                            </table> 
+
+                            </div>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12">
                         <div class="card" style="padding: 10px;">
-                            <div class="table-responsive">
+                            <div class="card ">
+                                {{ text_berita }}
+                            </div>
+
+                            <!--<div class="table-responsive">
 
                                 <table class="table table-bordered" >
                                     <thead>
@@ -95,7 +93,7 @@
                                     </tbody>
                                       
                                 </table>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
