@@ -178,6 +178,7 @@
     function myFunc(vars) {
         return vars
     }
+    
     myVar = myFunc({{data|tojson}})
     myVarFitur = myFunc({{fiturdata|tojson}})
     baseUrl   = '{{baseUrl}}'
@@ -293,7 +294,7 @@
         series: [
 
           {
-            name: 'Positive',
+            name: 'Positif',
             type: 'bar',
             stack: 'category',
             color: ['#00b04f'],
@@ -309,7 +310,7 @@
           },
 
           {
-            name: 'Negative',
+            name: 'Negatif',
             type: 'bar',
             stack: 'category',
             color: ['#ff0000'],
@@ -393,7 +394,7 @@
       
       series: [
         {
-          name: 'Positive',
+          name: 'Positif',
           type: 'bar',
           stack: 'category',
           color: ['#00b04f'],
@@ -407,7 +408,7 @@
           data: myVarFitur.total[0]
         },
         {
-          name: 'Negative',
+          name: 'Negatif',
           type: 'bar',
           stack: 'category',
           color: ['#ff0000'],

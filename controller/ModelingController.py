@@ -53,7 +53,6 @@ class ModelingController():
     def classfication(self, dataUji=""):
         classResult = ['Netral', 'Positif', 'Negatif']
 
-        # model = self.modelingAction()
         praproses = PraprosesController(dataPraproses=dataUji)
         afterPraproses = praproses.allPraproses()
         
@@ -76,3 +75,4 @@ class ModelingController():
         wc.to_file('static/Classification.png')
         
         return praproses
+        

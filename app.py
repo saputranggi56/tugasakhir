@@ -163,9 +163,16 @@ def handle_klasifikasi_url():
         
         if netloc == 'www.cnbcindonesia.com':
             dataBerita = controllerBerita.getNewscnbc(url=url_berita)
-            
+        elif netloc == 'health.detik.com' or netloc == 'www.detik.com' or netloc=='finance.detik.com':
+            dataBerita = controllerBerita.getNewsDetik(url=url_berita)
+        elif netloc == 'dunia.tempo.co' or netloc == 'nasional.tempo.co' :
+            dataBerita = controllerBerita.getNewsTempo(url=url_berita)
         else:
-            return 'Hanya bisa mengakses url CNBC, Detik, dan Tempo'
+            return render_template("error.phtml", error_code="204", message="Portal yang dapat diakses hanya dapat cnbc, detik dan tempo")
+
+        if dataBerita['code'] != 0:
+            return render_template("error.phtml", error_code=dataBerita['code'], message=dataBerita['message'] )
+
 
         mycon    = psycopg2.connect(**connection_kwargs)
         model = ModelingController(connection=mycon)
@@ -209,7 +216,7 @@ def handle_klasifikasi_url():
 
         text_berita  = text_berita+'</p>'
 
-    return render_template("handleklasifikasi.phtml", data=array_result, dataHeader=objHeader, text_berita=text_berita)
+    return render_template("handleklasifikasi.phtml", data=array_result, dataHeader=objHeader, text_berita=text_berita, judul=dataBerita['judul'])
 
 @app.route('/handleklasifikasi', methods=['POST'])
 def handle_klasifikasi():
@@ -237,6 +244,7 @@ def handle_klasifikasi():
         objHeader['total_netral']  = 0
 
         i=0
+        text_berita = '<p class="text-justify h4 p-3" style="line-height: 1.5">'
 
         for x in array_kalimat:
 
@@ -249,18 +257,25 @@ def handle_klasifikasi():
             arrayTemp['after_praproses'] = action['after_praproses']
 
             if action['flagging'] == 'Positif':
+                tmp_text =  '<span class="bg-primary text-white">'+x.strip()+'</span>'
                 objHeader['total_positif'] += 1
             if action['flagging'] == 'Negatif':
+                tmp_text =  '<span class="bg-danger text-white">'+x.strip()+'</span>'
                 objHeader['total_negatif'] += 1
             if action['flagging'] == 'Netral':
+                tmp_text =  '<span class="bg-info text-white">'+x.strip()+'</span>'
                 objHeader['total_netral'] += 1
 
+            text_berita = text_berita+' '+tmp_text
+            
             array_result.insert(i, arrayTemp)
             i+=1
-            
+        
+        text_berita  = text_berita+'</p>'
+
         model.worldCLoud(kalimat_berita=kalimat_berita)
 
-    return render_template("handleklasifikasi.html", data=array_result, dataHeader=objHeader)
+    return render_template("handleklasifikasi.phtml", text_berita=text_berita, data=array_result, dataHeader=objHeader, judul="")
 
 if __name__ == "__main__":
     app.run(debug=True)
